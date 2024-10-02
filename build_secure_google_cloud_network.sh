@@ -17,6 +17,7 @@ gcloud compute firewall-rules delete open-access
 # 3. The bastion host is the one machine authorized to receive external SSH traffic. 
 # Create a firewall rule that allows SSH (tcp/22) from the IAP service. 
 # The firewall rule must be enabled for the bastion host instance using a network tag of grant-ssh-iap-ingress-ql-221.
+# Check this website for the reference https://cloud.google.com/iap/docs/using-tcp-forwarding#gcloud
 gcloud compute firewall-rules create allow-ssh-ingress-from-iap --direction=INGRESS --action=allow --rules=tcp:22 --source-ranges=35.235.240.0/20 --target-tags=$IAP_NETWORK_TAG --network=acme-vpc
 # Update the bastion host instance to enable the firewall rule via network tag.
 gcloud compute instances add-tags bastion --tags=$IAP_NETWORK_TAG --zone=$ZONE
